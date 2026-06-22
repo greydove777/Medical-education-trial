@@ -2,36 +2,384 @@
 
 > ⚠️ 建議先完成 `case.md` 中的任務後再閱讀本檔案。
 
+<style>
+.dx-flip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 20px 0;
+}
+.dx-flip-card {
+  width: 220px;
+  height: 210px;
+  perspective: 1200px;
+}
+.dx-flip-card input[type="checkbox"] {
+  display: none;
+}
+.dx-flip-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.dx-flip-card input:checked ~ .dx-flip-inner {
+  transform: rotateY(180deg);
+}
+.dx-flip-front, .dx-flip-back {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 14px;
+  overflow-y: auto;
+}
+.dx-flip-front {
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  border: 2px solid #6366f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.dx-flip-front .dx-rank {
+  font-size: 0.8em;
+  color: #6366f1;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.dx-flip-front .dx-name {
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 1.4;
+}
+.dx-flip-front .dx-hint {
+  margin-top: 10px;
+  font-size: 0.78em;
+  color: #6b7280;
+}
+.dx-flip-back {
+  background: #fffbeb;
+  border: 2px solid #f59e0b;
+  transform: rotateY(180deg);
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+.dx-flip-back b {
+  color: #92400e;
+}
+</style>
+
+---
+
+## 0️⃣ 生命徵象判讀 (Vital Signs Interpretation)
+
+> 💡 點擊卡片翻面，看看每個數值背後隱藏的臨床意義。
+
+<div class="dx-flip-grid">
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="vs-card-1">
+  <label for="vs-card-1" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">血壓</div>
+      <div class="dx-name">178/96 mmHg</div>
+      <div class="dx-hint">👆 點擊翻面看意義</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>判讀：</b>未超過 rt-PA 給藥門檻 (<185/110 mmHg)，<b>不需要</b>額外降壓即可準備給藥；需留意是否為長期未規律服藥的慢性高血壓所致
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="vs-card-2">
+  <label for="vs-card-2" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">心率 / 心律</div>
+      <div class="dx-name">92 bpm<br>節律不規則</div>
+      <div class="dx-hint">👆 點擊翻面看意義</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>判讀：</b>不規則心律提示心房顫動 (Atrial Fibrillation) 可能，須安排 12-lead ECG 確認；亦提示可能病因為<b>心源性栓塞 (cardioembolic stroke)</b>
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="vs-card-3">
+  <label for="vs-card-3" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">血氧</div>
+      <div class="dx-name">SpO2 98%<br>(room air)</div>
+      <div class="dx-hint">👆 點擊翻面看意義</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>判讀：</b>正常，無明顯低氧，暫無立即呼吸道處置或氧氣治療需求
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="vs-card-4">
+  <label for="vs-card-4" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">體溫</div>
+      <div class="dx-name">36.8°C</div>
+      <div class="dx-hint">👆 點擊翻面看意義</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>判讀：</b>正常，無發燒徵象，降低中樞神經感染或敗血症相關腦病的可能性
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="vs-card-5">
+  <label for="vs-card-5" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">指尖血糖</div>
+      <div class="dx-name">142 mg/dL</div>
+      <div class="dx-hint">👆 點擊翻面看意義</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>判讀：</b>可初步排除低血糖這個 stroke mimic；血糖過高（通常 >185 mg/dL）才會是 rt-PA 相對禁忌考量之一，本案數值不構成顧慮
+    </div>
+  </label>
+</div>
+
+</div>
+
 ---
 
 ## 1️⃣ NIHSS 逐項計分
 
-<details>
-<summary>點擊展開計分明細</summary>
+> 💡 點擊每張卡片翻面，核對你的評分是否正確。
 
-| 項目 | 發現 | 給分 |
-|---|---|---|
-| 1a. LOC | 清醒 | 0 |
-| 1b. LOC 問題 | 回答含糊但內容正確（答對但構音/語言受影響，非完全錯誤）→ 視情境給 1 | **1** |
-| 1c. LOC 指令 | 正確完成兩項指令 | 0 |
-| 2. 凝視 | 正常 | 0 |
-| 3. 視野 | 無缺損 | 0 |
-| 4. 顏面麻痺 | 輕度（minor，鼻唇溝變淺、口角下垂但可閉眼） | **1** |
-| 5a. 右上肢 | 10秒內下垂但未落床（drift） | **2** |
-| 5b. 左上肢 | 正常維持 | 0 |
-| 6a. 右下肢 | 輕微力量下降，可抗阻力 | **1** |
-| 6b. 左下肢 | 正常 | 0 |
-| 7. 共濟失調 | 因無力無法評估 → 計 0（非共濟失調本身問題） | 0 |
-| 8. 感覺 | 正常 | 0 |
-| 9. 語言 | 輕度~中度找詞困難、不流暢，但理解保留 → mild-moderate aphasia | **1** |
-| 10. 構音障礙 | 明顯但可被理解 | **1** |
-| 11. 忽略症 | 無 | 0 |
+<div class="dx-flip-grid">
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-1">
+  <label for="ns-card-1" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">1a. 意識水平 (LOC)</div>
+      <div class="dx-name">清醒，可自發睜眼</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：0</b><br>清醒、可自發反應，無意識障礙
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-2">
+  <label for="ns-card-2" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">1b. LOC 問題</div>
+      <div class="dx-name">回答含糊但內容正確</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：1</b><br>答對但因構音/語言受影響而不清楚，非完全答錯
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-3">
+  <label for="ns-card-3" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">1c. LOC 指令</div>
+      <div class="dx-name">正確完成兩項指令</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：0</b><br>兩項指令皆正確完成
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-4">
+  <label for="ns-card-4" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">2. 凝視</div>
+      <div class="dx-name">雙眼水平活動正常</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：0</b><br>無凝視偏移
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-5">
+  <label for="ns-card-5" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">3. 視野</div>
+      <div class="dx-name">粗略測試無缺損</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：0</b><br>未發現偏盲或視野缺損
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-6">
+  <label for="ns-card-6" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">4. 顏面麻痺</div>
+      <div class="dx-name">右側鼻唇溝變淺<br>口角下垂但可閉眼</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：1</b><br>屬於輕度（minor）顏面無力
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-7">
+  <label for="ns-card-7" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">5a. 右上肢</div>
+      <div class="dx-name">10秒內下垂<br>未完全落床</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：2</b><br>有 drift 但尚未完全落床，屬中度無力
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-8">
+  <label for="ns-card-8" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">5b. 左上肢</div>
+      <div class="dx-name">正常維持90度10秒</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：0</b><br>無下垂，力量正常
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-9">
+  <label for="ns-card-9" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">6a. 右下肢</div>
+      <div class="dx-name">力量稍弱<br>可抗阻力</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：1</b><br>輕微力量下降，仍可對抗阻力
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-10">
+  <label for="ns-card-10" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">6b. 左下肢</div>
+      <div class="dx-name">正常</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：0</b><br>力量正常
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-11">
+  <label for="ns-card-11" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">7. 肢體共濟失調</div>
+      <div class="dx-name">因無力無法可靠評估</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：0</b><br>因無力而無法評估時計 0 分，並非共濟失調本身的問題
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-12">
+  <label for="ns-card-12" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">8. 感覺</div>
+      <div class="dx-name">針刺反應正常對稱</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：0</b><br>雙側對稱，無感覺缺損
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-13">
+  <label for="ns-card-13" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">9. 語言</div>
+      <div class="dx-name">找詞困難、不流暢<br>理解力保留</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：1</b><br>輕度~中度失語（mild-moderate aphasia）
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-14">
+  <label for="ns-card-14" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">10. 構音障礙</div>
+      <div class="dx-name">說話明顯含糊<br>仍可被理解</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：1</b><br>明顯但可理解，屬中等程度構音障礙
+    </div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="ns-card-15">
+  <label for="ns-card-15" class="dx-flip-inner">
+    <div class="dx-flip-front">
+      <div class="dx-rank">11. 忽略症</div>
+      <div class="dx-name">雙側同時刺激無忽略</div>
+      <div class="dx-hint">👆 你給幾分？</div>
+    </div>
+    <div class="dx-flip-back">
+      <b>給分：0</b><br>無 extinction/inattention 現象
+    </div>
+  </label>
+</div>
+
+</div>
 
 **總分 = 1+1+2+1+1+1 = 約 7 分**（屬於輕度至中度中風，mild-moderate stroke）
 
 > 📌 教學提醒：NIHSS 評分常見爭議點在於 **1b（LOC questions）與失語症的交互影響**——若患者因構音障礙導致答案聽不清楚但內容正確，通常給 1 分而非 2 分；需與失語症（9 分項目）區分評估，避免重複扣分邏輯混淆。
-
-</details>
 
 ---
 
@@ -60,81 +408,6 @@
 ## 3️⃣ 鑑別診斷 (Top 3 Differential Diagnosis)
 
 > 💡 點擊下方卡片翻面查看支持點與需排除點。建議先自己猜猜看排序，再翻開核對。
-
-<style>
-.dx-flip-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  margin: 20px 0;
-}
-.dx-flip-card {
-  width: 260px;
-  height: 230px;
-  perspective: 1200px;
-}
-.dx-flip-card input[type="checkbox"] {
-  display: none;
-}
-.dx-flip-inner {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-}
-.dx-flip-card input:checked ~ .dx-flip-inner {
-  transform: rotateY(180deg);
-}
-.dx-flip-front, .dx-flip-back {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 14px;
-  box-sizing: border-box;
-  padding: 16px;
-  overflow-y: auto;
-}
-.dx-flip-front {
-  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
-  border: 2px solid #6366f1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.dx-flip-front .dx-rank {
-  font-size: 0.8em;
-  color: #6366f1;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-.dx-flip-front .dx-name {
-  font-weight: bold;
-  font-size: 1.05em;
-  line-height: 1.4;
-}
-.dx-flip-front .dx-hint {
-  margin-top: 10px;
-  font-size: 0.8em;
-  color: #6b7280;
-}
-.dx-flip-back {
-  background: #fffbeb;
-  border: 2px solid #f59e0b;
-  transform: rotateY(180deg);
-  font-size: 0.85em;
-  line-height: 1.5;
-}
-.dx-flip-back b {
-  color: #92400e;
-}
-</style>
 
 <div class="dx-flip-grid">
 

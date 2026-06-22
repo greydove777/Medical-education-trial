@@ -29,14 +29,73 @@
 
 ## 生命徵象 (Vital Signs)
 
-| 項目 | 數值 |
-|---|---|
-| 血壓 (BP) | 178/96 mmHg |
-| 心率 (HR) | 92 bpm，**節律不規則** |
-| 呼吸速率 (RR) | 18/min |
-| 體溫 (Temp) | 36.8°C |
-| 血氧 (SpO2) | 98% (room air) |
-| 隨機血糖 (Capillary glucose) | 142 mg/dL |
+> 💡 點擊卡片翻面查看測量結果。
+
+<style>
+.dx-flip-grid{display:flex;flex-wrap:wrap;gap:18px;margin:20px 0}
+.dx-flip-card{width:200px;height:170px;perspective:1200px}
+.dx-flip-card input[type="checkbox"]{display:none}
+.dx-flip-inner{position:relative;display:block;width:100%;height:100%;cursor:pointer;transition:transform .6s;transform-style:preserve-3d}
+.dx-flip-card input:checked ~ .dx-flip-inner{transform:rotateY(180deg)}
+.dx-flip-front,.dx-flip-back{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;border-radius:14px;box-sizing:border-box;padding:14px;overflow-y:auto}
+.dx-flip-front{background:linear-gradient(135deg,#eef2ff,#e0e7ff);border:2px solid #6366f1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.dx-flip-front .dx-rank{font-size:.8em;color:#6366f1;font-weight:bold;margin-bottom:6px}
+.dx-flip-front .dx-name{font-weight:bold;font-size:1em;line-height:1.4}
+.dx-flip-front .dx-hint{margin-top:10px;font-size:.78em;color:#6b7280}
+.dx-flip-back{background:#fffbeb;border:2px solid #f59e0b;transform:rotateY(180deg);font-size:.95em;line-height:1.5;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:bold}
+</style>
+
+<div class="dx-flip-grid">
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qvs-1">
+  <label for="qvs-1" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-name">血壓 (BP)</div><div class="dx-hint">👆 點擊看數值</div></div>
+    <div class="dx-flip-back">178/96 mmHg</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qvs-2">
+  <label for="qvs-2" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-name">心率 (HR)</div><div class="dx-hint">👆 點擊看數值</div></div>
+    <div class="dx-flip-back">92 bpm<br>節律不規則</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qvs-3">
+  <label for="qvs-3" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-name">呼吸速率 (RR)</div><div class="dx-hint">👆 點擊看數值</div></div>
+    <div class="dx-flip-back">18/min</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qvs-4">
+  <label for="qvs-4" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-name">體溫 (Temp)</div><div class="dx-hint">👆 點擊看數值</div></div>
+    <div class="dx-flip-back">36.8°C</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qvs-5">
+  <label for="qvs-5" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-name">血氧 (SpO2)</div><div class="dx-hint">👆 點擊看數值</div></div>
+    <div class="dx-flip-back">98%<br>(room air)</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qvs-6">
+  <label for="qvs-6" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-name">指尖血糖</div><div class="dx-hint">👆 點擊看數值</div></div>
+    <div class="dx-flip-back">142 mg/dL</div>
+  </label>
+</div>
+
+</div>
 
 ---
 
@@ -55,23 +114,131 @@
 
 ## 第二步：身體檢查 — NIHSS (NIH Stroke Scale)
 
-| NIHSS 項目 | 臨床發現 |
-|---|---|
-| **1a. 意識水平 (LOC)** | 清醒，可自發睜眼 |
-| **1b. LOC 問題**（月份、年齡） | 能理解問題但**回答含糊不清**，女兒確認答案內容大致正確 |
-| **1c. LOC 指令**（睜眼閉眼、握拳張手） | 可正確完成兩項指令 |
-| **2. 凝視 (Gaze)** | 雙眼可水平活動，無凝視偏移 |
-| **3. 視野 (Visual Fields)** | 粗略測試無缺損 |
-| **4. 顏面麻痺 (Facial Palsy)** | 右側鼻唇溝變淺，微笑時右口角下垂，仍可些微用力閉眼 |
-| **5. 上肢動作** — 右側 | 抬起後10秒內無法維持，逐漸下垂但未完全落床 |
-| **5. 上肢動作** — 左側 | 可抬起並維持90度達10秒 |
-| **6. 下肢動作** — 右側 | 可抬起，力量較左側稍弱，可對抗些微阻力 |
-| **6. 下肢動作** — 左側 | 正常 |
-| **7. 肢體共濟失調** | 因右側無力，無法可靠評估 |
-| **8. 感覺 (Sensory)** | 針刺反應正常，雙側對稱 |
-| **9. 語言 (Best Language)** | 可說出簡單詞句但不流暢、找詞困難，可命名大部分物品，理解力似保留 |
-| **10. 構音障礙 (Dysarthria)** | 說話明顯含糊，但可被理解 |
-| **11. 忽略症 (Extinction/Inattention)** | 無忽略現象 |
+> 💡 想像你正在床邊執行檢查：先想好每一項要怎麼測，點擊卡片翻面查看你會發現的結果，再自行評分。
+
+<div class="dx-flip-grid">
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-1">
+  <label for="qns-1" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">1a</div><div class="dx-name">意識水平 (LOC)</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">清醒，可自發睜眼</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-2">
+  <label for="qns-2" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">1b</div><div class="dx-name">LOC 問題<br>（月份、年齡）</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">能理解問題但回答含糊不清，女兒確認答案內容大致正確</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-3">
+  <label for="qns-3" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">1c</div><div class="dx-name">LOC 指令<br>（睜眼閉眼、握拳張手）</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">可正確完成兩項指令</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-4">
+  <label for="qns-4" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">2</div><div class="dx-name">凝視 (Gaze)</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">雙眼可水平活動，無凝視偏移</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-5">
+  <label for="qns-5" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">3</div><div class="dx-name">視野 (Visual Fields)</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">粗略測試無缺損</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-6">
+  <label for="qns-6" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">4</div><div class="dx-name">顏面麻痺<br>(Facial Palsy)</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">右側鼻唇溝變淺，微笑時右口角下垂，仍可些微用力閉眼</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-7">
+  <label for="qns-7" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">5</div><div class="dx-name">上肢動作 — 右側</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">抬起後10秒內無法維持，逐漸下垂但未完全落床</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-8">
+  <label for="qns-8" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">5</div><div class="dx-name">上肢動作 — 左側</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">可抬起並維持90度達10秒</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-9">
+  <label for="qns-9" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">6</div><div class="dx-name">下肢動作 — 右側</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">可抬起，力量較左側稍弱，可對抗些微阻力</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-10">
+  <label for="qns-10" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">6</div><div class="dx-name">下肢動作 — 左側</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">正常</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-11">
+  <label for="qns-11" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">7</div><div class="dx-name">肢體共濟失調</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">因右側無力，無法可靠評估</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-12">
+  <label for="qns-12" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">8</div><div class="dx-name">感覺 (Sensory)</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">針刺反應正常，雙側對稱</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-13">
+  <label for="qns-13" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">9</div><div class="dx-name">語言<br>(Best Language)</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">可說出簡單詞句但不流暢、找詞困難，可命名大部分物品，理解力似保留</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-14">
+  <label for="qns-14" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">10</div><div class="dx-name">構音障礙<br>(Dysarthria)</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">說話明顯含糊，但可被理解</div>
+  </label>
+</div>
+
+<div class="dx-flip-card">
+  <input type="checkbox" id="qns-15">
+  <label for="qns-15" class="dx-flip-inner">
+    <div class="dx-flip-front"><div class="dx-rank">11</div><div class="dx-name">忽略症<br>(Extinction/Inattention)</div><div class="dx-hint">👆 點擊看發現</div></div>
+    <div class="dx-flip-back">無忽略現象</div>
+  </label>
+</div>
+
+</div>
 
 **心臟聽診補充**
 - S1/S2 正常，未聞及明顯雜音
