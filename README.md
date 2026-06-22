@@ -13,6 +13,7 @@ neuro-case-001-acute-stroke/
 ├── README.md                  ← 你正在看的這份檔案
 ├── index.md                   ← GitHub Pages 首頁
 ├── _config.yml                ← GitHub Pages 主題設定
+├── simulator.html             ← 獨立運作的互動個案模擬器（對話泡泡+翻牌卡+分支決策）
 ├── case.md                    ← 案例題目（病史、生命徵象、NIHSS 檢查發現）
 ├── case-branching.md          ← 進階：治療決策分支劇情（依選擇走向不同結局）
 └── answer-key.md              ← 教學解答（NIHSS 計分、血管定位、鑑別診斷、處置、Debriefing）

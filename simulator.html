@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>急性右側肢體無力與構音障礙 — 互動個案模擬</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-page:#F6F3EC;
+  --bg-card:#FFFDF8;
+  --bg-card-alt:#EFE9DA;
+  --ink:#1E231F;
+  --ink-soft:#5B6058;
+  --ink-faint:#8C9088;
+  --teal:#0F6E56;
+  --teal-bg:#E1F0EA;
+  --teal-deep:#073D31;
+  --amber:#8A5A12;
+  --amber-bg:#FBEFD9;
+  --line:#D8D0BC;
+  --line-soft:#E6E0CE;
+  --radius:10px;
+  --radius-lg:16px;
+  --serif:'Source Serif 4', Georgia, serif;
+  --sans:'IBM Plex Sans', system-ui, sans-serif;
+  --mono:'IBM Plex Mono', monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg-page:#15171A;
+    --bg-card:#1D2023;
+    --bg-card-alt:#262A2D;
+    --ink:#E7E6E1;
+    --ink-soft:#A8ACA5;
+    --ink-faint:#74786F;
+    --teal:#4FBFA0;
+    --teal-bg:#1B3A32;
+    --teal-deep:#BFEEDF;
+    --amber:#E0A646;
+    --amber-bg:#3A2E16;
+    --line:#33372F;
+    --line-soft:#2A2D27;
+  }
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg-page);
+  color:var(--ink);
+  font-family:var(--sans);
+  line-height:1.65;
+}
+.wrap{max-width:760px;margin:0 auto;padding:32px 20px 120px}
+.masthead{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:28px}
+.masthead .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--teal);text-transform:uppercase}
+.masthead h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:6px 0 4px;letter-spacing:-.01em}
+.masthead .sub{font-size:13px;color:var(--ink-soft)}
+.bubble{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:18px 20px;
+  margin-bottom:14px;
+  font-family:var(--serif);
+  font-size:16px;
+  animation:rise .35s ease both;
+}
+.bubble.user{
+  background:var(--teal-bg);
+  border-color:var(--teal);
+  font-family:var(--sans);
+  font-size:14px;
+  color:var(--teal-deep);
+  margin-left:18%;
+  font-weight:500;
+}
+.bubble h3{font-family:var(--sans);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 10px}
+.bubble p{margin:0 0 10px}
+.bubble p:last-child{margin-bottom:0}
+.bubble b{color:var(--ink)}
+.hint{font-family:var(--mono);font-size:12px;color:var(--ink-faint);border-left:2px solid var(--amber);padding-left:10px;margin-top:10px}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.choices{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.choice-btn{
+  font-family:var(--sans);
+  font-size:14px;
+  font-weight:500;
+  background:var(--bg-card);
+  border:1px solid var(--ink);
+  color:var(--ink);
+  padding:9px 16px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:background .15s, transform .1s;
+}
+.choice-btn:hover{background:var(--bg-card-alt)}
+.choice-btn:active{transform:scale(.97)}
+.choice-btn:disabled{opacity:.35;cursor:default}
+
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.flip{height:130px;perspective:1000px}
+.flip input{display:none}
+.flip-inner{position:relative;display:block;width:100%;height:100%;cursor:pointer;transition:transform .55s;transform-style:preserve-3d}
+.flip input:checked ~ .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);box-sizing:border-box;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.front{background:var(--bg-card-alt);border:1px solid var(--line)}
+.front .label{font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
+.front .rank{font-family:var(--mono);font-size:11px;color:var(--teal);margin-bottom:4px}
+.back{background:var(--teal-bg);border:1px solid var(--teal);transform:rotateY(180deg);font-family:var(--mono);font-size:14px;color:var(--teal-deep);font-weight:500}
+.back.long{font-family:var(--sans);font-size:12.5px;font-weight:400;line-height:1.5;text-align:left;align-items:flex-start;overflow-y:auto}
+.flip-arrow{font-size:13px;color:var(--ink-faint);margin-top:6px}
+
+.scoreform{display:flex;gap:8px;align-items:center;margin:14px 0}
+.scoreform input{
+  width:64px;font-family:var(--mono);font-size:16px;text-align:center;
+  background:var(--bg-card-alt);border:1px solid var(--line);border-radius:var(--radius);
+  padding:8px;color:var(--ink);
+}
+.scoreform button{
+  font-family:var(--sans);font-weight:500;font-size:14px;background:var(--ink);color:var(--bg-page);
+  border:none;border-radius:999px;padding:9px 18px;cursor:pointer;
+}
+.feedback{font-family:var(--sans);font-size:14px;margin-top:10px;padding:10px 12px;border-radius:var(--radius)}
+.feedback.good{background:var(--teal-bg);color:var(--teal-deep)}
+.feedback.warn{background:var(--amber-bg);color:var(--amber)}
+
+.divider{display:flex;align-items:center;gap:10px;margin:30px 0 16px;color:var(--ink-faint);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+
+footer{margin-top:40px;font-family:var(--mono);font-size:11px;color:var(--ink-faint);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div class="eyebrow">Neurology · Case simulation 001</div>
+    <h1>急性右側肢體無力與構音障礙</h1>
+    <div class="sub">醫學生教學案例 · Socratic 引導式互動 · 點擊卡片與選項繼續</div>
+  </div>
+  <div id="chat"></div>
+</div>
+<footer>本案例為虛構教學情境，僅供醫學教育演練使用</footer>
+
+<script>
+const chat = document.getElementById('chat');
+let uid = 0;
+
+function bubble(html, cls){
+  const div = document.createElement('div');
+  div.className = 'bubble' + (cls ? ' '+cls : '');
+  div.innerHTML = html;
+  chat.appendChild(div);
+  div.scrollIntoView({behavior:'smooth', block:'end'});
+  return div;
+}
+
+function choices(options){
+  const div = document.createElement('div');
+  div.className = 'choices';
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = opt.label;
+    btn.onclick = () => {
+      Array.from(div.children).forEach(b => b.disabled = true);
+      bubble(opt.label, 'user');
+      opt.next();
+    };
+    div.appendChild(btn);
+  });
+  chat.appendChild(div);
+  div.scrollIntoView({behavior:'smooth', block:'end'});
+}
+
+function flipCard(rank, label, back, long){
+  uid++;
+  const id = 'f'+uid;
+  return `<div class="flip"><input type="checkbox" id="${id}">
+    <label for="${id}" class="flip-inner">
+      <div class="face front">${rank?`<div class="rank">${rank}</div>`:''}<div class="label">${label}</div><div class="flip-arrow">↻</div></div>
+      <div class="face back${long?' long':''}">${back}</div>
+    </label></div>`;
+}
+
+// ---- Step 1: history ----
+bubble(`
+  <h3>第一步 · 主訴與病史</h3>
+  <p><b>68歲女性</b>，獨居，由女兒發現後緊急送至急診室。</p>
+  <p>女兒表示：「媽媽今天早上講話突然變得很奇怪，右手好像也不太會動。」</p>
+  <p>07:30 最後正常（<b>Last known well</b>）→ 09:00 女兒發現異常 → 09:30 女兒到場 → <b>10:10 抵達急診</b></p>
+  <p>過去病史：高血壓（常忘記服藥）、第二型糖尿病、否認心房顫動、否認手術史。</p>
+  <div class="hint">思考：症狀發生時間該怎麼界定？這會決定後面治療的時間窗。</div>
+`);
+
+bubble(`
+  <h3>生命徵象</h3>
+  <div class="cardgrid">
+    ${flipCard('', '血壓', '178/96 mmHg')}
+    ${flipCard('', '心率/心律', '92 bpm<br>不規則')}
+    ${flipCard('', '呼吸速率', '18/min')}
+    ${flipCard('', '體溫', '36.8°C')}
+    ${flipCard('', '血氧', '98% room air')}
+    ${flipCard('', '指尖血糖', '142 mg/dL')}
+  </div>
+  <p style="font-size:13px;color:var(--ink-soft);margin-top:6px">點擊卡片翻面查看數值</p>
+`);
+
+choices([
+  {label:'進行 NIHSS 神經學檢查', next: step2_nihss},
+  {label:'先聽診心臟', next: () => { bubble('心音 S1/S2 正常，未聞及明顯雜音；心律觸診/聽診不規則。', null); step1b(); }}
+]);
+
+function step1b(){
+  choices([
+    {label:'進行 NIHSS 神經學檢查', next: step2_nihss}
+  ]);
+}
+
+// ---- Step 2: NIHSS ----
+const nihssItems = [
+  ['1a','意識水平 (LOC)','清醒，可自發睜眼',0],
+  ['1b','LOC 問題','回答含糊但內容正確',1],
+  ['1c','LOC 指令','正確完成兩項指令',0],
+  ['2','凝視','雙眼水平活動正常',0],
+  ['3','視野','粗略測試無缺損',0],
+  ['4','顏面麻痺','右側鼻唇溝變淺，口角下垂但可閉眼',1],
+  ['5a','上肢-右','10秒內下垂，未完全落床',2],
+  ['5b','上肢-左','正常維持90度10秒',0],
+  ['6a','下肢-右','力量稍弱，可抗阻力',1],
+  ['6b','下肢-左','正常',0],
+  ['7','共濟失調','因無力無法評估',0],
+  ['8','感覺','針刺反應正常對稱',0],
+  ['9','語言','找詞困難、不流暢，理解保留',1],
+  ['10','構音障礙','說話明顯含糊，可被理解',1],
+  ['11','忽略症','無忽略現象',0]
+];
+
+function step2_nihss(){
+  bubble(`
+    <h3>第二步 · NIHSS 床邊檢查</h3>
+    <p>想像你正在床邊執行檢查：先想好每一項要怎麼測，翻面查看你會發現的結果。</p>
+    <div class="cardgrid">
+      ${nihssItems.map(it => flipCard(it[0], it[1], it[2], true)).join('')}
+    </div>
+    <p style="font-size:13px;color:var(--ink-soft);margin-top:10px">心臟聽診補充：S1/S2 正常、心律不規則</p>
+  `);
+  bubble(`
+    <h3>你的評分</h3>
+    <p>逐項評分後，輸入你算出的 <b>NIHSS 總分</b>：</p>
+    <div class="scoreform">
+      <input type="number" id="nihssInput" min="0" max="42">
+      <button id="nihssSubmit">送出評分</button>
+    </div>
+    <div id="nihssFeedback"></div>
+  `);
+  document.getElementById('nihssSubmit').onclick = () => {
+    const val = parseInt(document.getElementById('nihssInput').value, 10);
+    const fb = document.getElementById('nihssFeedback');
+    if(isNaN(val)){ fb.className='feedback warn'; fb.textContent='請先輸入一個數字。'; return; }
+    if(val === 7){
+      fb.className='feedback good';
+      fb.innerHTML = '正確！總分 <b>7 分</b>（輕度至中度中風）。常見爭議點在 1b 與失語症的交互評分，需小心區分。';
+    } else {
+      fb.className='feedback warn';
+      fb.innerHTML = `你的答案是 ${val}，正確答案是 <b>7 分</b>（1+1+2+1+1+1）。可以回頭核對每張卡片的給分依據。`;
+    }
+    document.getElementById('nihssSubmit').disabled = true;
+    setTimeout(step3_localization, 400);
+  };
+}
+
+// ---- Step 3: localization + differential ----
+function step3_localization(){
+  bubble(`
+    <h3>血管定位推論</h3>
+    <p>右側顏面+上肢無力為主（腿較輕）、構音障礙+找詞困難、<b>無</b>視野缺損、<b>無</b>忽略症。</p>
+    <p>這個組合定位於 <b>左側大腦中動脈 (Left MCA) 上分支</b> 供應區，語言障礙支持優勢側額葉下部受累。心律不整則提示可能病因為<b>心源性栓塞</b>。</p>
+  `);
+  choices([
+    {label:'我同意這個定位推論，繼續', next: step4_ddx}
+  ]);
+}
+
+function step4_ddx(){
+  bubble(`
+    <h3>第三步 · 鑑別診斷</h3>
+    <p>點擊卡片翻面查看支持點與需排除點。</p>
+    <div class="cardgrid">
+      ${flipCard('排序1','急性缺血性腦中風<br>左側 MCA','支持：急性局部缺損、時間軸明確、心律不整<br>需排除：須影像排除出血',true)}
+      ${flipCard('排序2','腦出血','支持：症狀可相似，血壓偏高<br>需排除：須以 non-contrast CT 立即排除——這是給藥前關鍵第一步',true)}
+      ${flipCard('排序3',"Stroke mimics<br>低血糖/Todd's/偏頭痛",'支持：常見 stroke mimics<br>已排除：血糖142正常；無癲癇、頭痛病史',true)}
+    </div>
+  `);
+  choices([
+    {label:'排除出血是當下最優先 → 安排影像', next: step5_imaging}
+  ]);
+}
+
+// ---- Step 5: branching management decisions ----
+let ctaDone = false;
+
+function step5_imaging(){
+  bubble(`<h3>第四步 · 決策點 1：影像學策略</h3><p>你會如何安排影像檢查？</p>`);
+  choices([
+    {label:'只做 Non-contrast CT', next: () => {
+      ctaDone = false;
+      bubble('CT 結果：未見出血、未見早期大範圍梗塞徵象。<div class="hint">你目前無法得知是否有大血管阻塞 (LVO)，但可先排除出血、加速給藥流程。</div>');
+      step6_bp();
+    }},
+    {label:'同時做 CT + CTA', next: () => {
+      ctaDone = true;
+      bubble('CT 結果：未見出血。CTA 結果：<b>左側 MCA M1 段閉塞</b>，確認為大血管阻塞 (LVO)。<div class="hint">你提早確認了 LVO，病人可能同時是機械取栓候選人。</div>');
+      step6_bp();
+    }}
+  ]);
+}
+
+function step6_bp(){
+  bubble(`<h3>決策點 2：血壓處置</h3><p>病人血壓 178/96 mmHg，你會怎麼處理？</p>`);
+  choices([
+    {label:'血壓偏高，先降壓再給藥', next: () => {
+      bubble('<div class="feedback warn">這是常見陷阱：rt-PA 門檻是 <b>&lt;185/110 mmHg</b>，178/96 已符合條件，降壓造成不必要的延遲（time is brain）。</div>');
+      step7_contra();
+    }},
+    {label:'已符合條件，不需處理', next: () => {
+      bubble('<div class="feedback good">正確判斷，178/96 mmHg 低於門檻，可直接準備給藥。</div>');
+      step7_contra();
+    }}
+  ]);
+}
+
+function step7_contra(){
+  bubble(`<h3>決策點 3：禁忌症複核</h3><p>護理人員告知：「家屬補充說，患者三週前曾因牙齒問題做過一個小處置，不確定詳細內容。」</p>`);
+  choices([
+    {label:'應該不影響，直接給藥', next: () => {
+      bubble('<div class="feedback warn">這次「賭對了」（後來確認只是拔牙），但這是危險的僥倖——近期大型手術/出血是 rt-PA 禁忌症，不確定的病史永遠值得多花30秒釐清。</div>');
+      step8_thrombectomy();
+    }},
+    {label:'先追問處置細節與時間', next: () => {
+      bubble('<div class="feedback good">追問後確認：三週前僅單純拔牙，無併發出血，不構成禁忌症。可放心準備給藥。</div>');
+      step8_thrombectomy();
+    }}
+  ]);
+}
+
+function step8_thrombectomy(){
+  if(ctaDone){
+    bubble(`<h3>決策點 4：取栓轉介（已知 LVO）</h3><p>CTA 已確認左側 MCA M1 閉塞，你會怎麼安排取栓評估？</p>`);
+    choices([
+      {label:'給藥同時立即聯繫取栓團隊', next: () => {
+        bubble('<div class="feedback good">這是目前實證支持的 bridging therapy 策略：IV rt-PA 與機械取栓評估應平行進行，不延誤任一方。</div>');
+        finalDebrief();
+      }},
+      {label:'先觀察1小時效果再決定', next: () => {
+        bubble('<div class="feedback warn">這個等待邏輯會犧牲取栓的時間窗，對已知 LVO 的病人不建議採用序列式決策。</div>');
+        finalDebrief();
+      }}
+    ]);
+  } else {
+    bubble(`<h3>決策點 4：取栓轉介（尚未做 CTA）</h3><p>你還不知道是否有大血管阻塞，接下來呢？</p>`);
+    choices([
+      {label:'先給藥觀察，無改善才補做 CTA', next: () => {
+        bubble('<div class="feedback warn">序列式決策會讓 LVO 的發現延後，比平行評估晚了約45分鐘才能聯繫取栓團隊。</div>');
+        finalDebrief();
+      }},
+      {label:'給藥同時立即補做 CTA', next: () => {
+        bubble('<div class="feedback good">及時修正也是重要能力——平行評估讓整體流程沒有額外延誤。</div>');
+        finalDebrief();
+      }}
+    ]);
+  }
+}
+
+function finalDebrief(){
+  bubble(`
+    <h3>結局總結與專家回顧</h3>
+    <p>1. <b>Last known well</b> 而非「被發現異常的時間」才是時間窗起點。</p>
+    <p>2. 面臂腿無力 + 語言障礙的組合，可快速定位至優勢側 MCA 供應區。</p>
+    <p>3. rt-PA 血壓門檻是 <b>&lt;185/110 mmHg</b>，不是越低越好。</p>
+    <p>4. 不確定的病史細節永遠值得多花時間釐清。</p>
+    <p>5. 急性中風處置的核心思維是<b>平行處理優於序列處理</b>——CTA 評估與給藥應盡量同時進行，取栓轉介同理。</p>
+    <div class="hint">想重新挑戰嗎？重新整理頁面即可從頭再走一次，嘗試不同的選擇組合。</div>
+  `);
+}
+</script>
+</body>
+</html>
